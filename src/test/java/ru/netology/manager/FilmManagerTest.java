@@ -2,10 +2,8 @@ package ru.netology.manager;
 
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Film;
-import ru.netology.repository.FilmRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 class FilmManagerTest {
 

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.netology.domain.Film;
-import ru.netology.repository.FilmRepository;
 
 @NoArgsConstructor
 @AllArgsConstructor
