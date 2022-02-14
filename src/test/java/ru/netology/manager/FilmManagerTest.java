@@ -37,8 +37,8 @@ class FilmManagerTest {
         manager.save(twelfth);
 
         Film[] actual = manager.showAll();
-        Film[] expected = {twelfth,eleventh,tenth,ninth,eight,seventh,sixth,fifth,fourth,third};
-        assertArrayEquals(expected,actual);
+        Film[] expected = {twelfth, eleventh, tenth, ninth, eight, seventh, sixth, fifth, fourth, third};
+        assertArrayEquals(expected, actual);
 
     }
 
@@ -72,8 +72,8 @@ class FilmManagerTest {
         manager.save(twelfth);
 
         Film[] actual = manager.showAll(5);
-        Film[] expected = {twelfth,eleventh,tenth,ninth,eight};
-        assertArrayEquals(expected,actual);
+        Film[] expected = {twelfth, eleventh, tenth, ninth, eight};
+        assertArrayEquals(expected, actual);
 
     }
 
@@ -86,7 +86,7 @@ class FilmManagerTest {
 
         Film[] actual = manager.showAll();
         Film[] expected = {first};
-        assertArrayEquals(expected,actual);
+        assertArrayEquals(expected, actual);
 
     }
 
@@ -97,7 +97,7 @@ class FilmManagerTest {
 
         Film[] actual = manager.showAll();
         Film[] expected = {};
-        assertArrayEquals(expected,actual);
+        assertArrayEquals(expected, actual);
 
     }
 
