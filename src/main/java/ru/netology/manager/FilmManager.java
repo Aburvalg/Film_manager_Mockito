@@ -11,12 +11,11 @@ import ru.netology.domain.Film;
 
 public class FilmManager {
     private Film[] films = new Film[0];
-    //private FilmRepository repository;
     private int limitForShow = 10;
 
-//    public FilmManager(FilmRepository repository) {
-//        this.repository = repository;
-//    }
+    public FilmManager(int limitForShow) {
+        this.limitForShow = limitForShow;
+    }
 
     public void save(Film film) {
         int length = films.length + 1;
@@ -28,23 +27,6 @@ public class FilmManager {
     }
 
     public Film[] showAll() {
-
-        int resultLength = films.length;
-        if (resultLength > limitForShow) {
-            resultLength = limitForShow;
-        } else {
-            resultLength = films.length;
-        }
-
-        Film[] result = new Film[resultLength];
-        for (int i = 0; i < result.length; i++) {
-            int index = films.length - i - 1;
-            result[i] = films[index];
-        }
-        return result;
-    }
-
-    public Film[] showAll(int limitForShow) {
 
         int resultLength = films.length;
         if (resultLength > limitForShow) {
