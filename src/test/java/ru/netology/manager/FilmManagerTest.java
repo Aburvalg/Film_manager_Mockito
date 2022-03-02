@@ -1,42 +1,73 @@
 package ru.netology.manager;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Film;
+import ru.netology.repository.FilmRepository;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilmManagerTest {
 
+    private FilmManager manager = new FilmManager(new FilmRepository());
+
+    private Film first = new Film(1, "eger", "action");
+    private Film second = new Film(2, "verr", "drama");
+    private Film third = new Film(3, "dfer", "comedy");
+    private Film fourth = new Film(4, "eger", "action");
+    private Film fifth = new Film(5, "ve", "drama");
+    private Film sixth = new Film(6, "dfer", "comedy");
+    private Film seventh = new Film(7, "eger", "action");
+    private Film eight = new Film(8, "verr", "drama");
+    private Film ninth = new Film(9, "dfer", "comedy");
+    private Film tenth = new Film(10, "eger", "action");
+    private Film eleventh = new Film(11, "verr", "drama");
+    private Film twelfth = new Film(12, "dfer", "comedy");
+
+    @BeforeEach
+    public void setUp() {
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eight);
+        manager.add(ninth);
+        manager.add(tenth);
+        manager.add(eleventh);
+        manager.add(twelfth);
+    }
+
+    @Test
+    public  void shouldSort(){
+        manager.removeById(2);
+        manager.removeById(4);
+        manager.removeById(6);
+        manager.removeById(8);
+        manager.removeById(9);
+        manager.removeById(10);
+        manager.removeById(12);
+        Film[] actual = manager.findWithSort((a,b)->(a.getId()-b.getId())); // на ввод подаются две сущности и сравниваются, их названия без разницы
+        assertArrayEquals(new Film[]{first,third,fifth,seventh,eleventh},actual);
+    }
+
+    @Test
+    public void shouldFindById(){
+        assertEquals(fifth, manager.findById(5));
+    }
+
+    @Test
+    public void shouldFindByNameFilm(){
+        assertArrayEquals(new Film[]{fifth}, manager.findByNameFilm("ve"));
+    }
+
     @Test
     public void shouldShowAllFilms() {
-        Film first = new Film(1, "eger", "action");
-        Film second = new Film(2, "verr", "drama");
-        Film third = new Film(3, "dfer", "comedy");
-        Film fourth = new Film(4, "eger", "action");
-        Film fifth = new Film(5, "verr", "drama");
-        Film sixth = new Film(6, "dfer", "comedy");
-        Film seventh = new Film(7, "eger", "action");
-        Film eight = new Film(8, "verr", "drama");
-        Film ninth = new Film(9, "dfer", "comedy");
-        Film tenth = new Film(10, "eger", "action");
-        Film eleventh = new Film(11, "verr", "drama");
-        Film twelfth = new Film(12, "dfer", "comedy");
-
-        FilmManager manager = new FilmManager();
-        manager.save(first);
-        manager.save(second);
-        manager.save(third);
-        manager.save(fourth);
-        manager.save(fifth);
-        manager.save(sixth);
-        manager.save(seventh);
-        manager.save(eight);
-        manager.save(ninth);
-        manager.save(tenth);
-        manager.save(eleventh);
-        manager.save(twelfth);
-
-        Film[] actual = manager.showAll();
+        Film[] actual = manager.showAllStartLast();
         Film[] expected = {twelfth, eleventh, tenth, ninth, eight, seventh, sixth, fifth, fourth, third};
         assertArrayEquals(expected, actual);
 
@@ -44,34 +75,20 @@ class FilmManagerTest {
 
     @Test
     public void shouldShowAllFullFilmsWithLimit() {
-        Film first = new Film(1, "eger", "action");
-        Film second = new Film(2, "verr", "drama");
-        Film third = new Film(3, "dfer", "comedy");
-        Film fourth = new Film(4, "eger", "action");
-        Film fifth = new Film(5, "verr", "drama");
-        Film sixth = new Film(6, "dfer", "comedy");
-        Film seventh = new Film(7, "eger", "action");
-        Film eight = new Film(8, "verr", "drama");
-        Film ninth = new Film(9, "dfer", "comedy");
-        Film tenth = new Film(10, "eger", "action");
-        Film eleventh = new Film(11, "verr", "drama");
-        Film twelfth = new Film(12, "dfer", "comedy");
-
-        FilmManager manager = new FilmManager(5);
-        manager.save(first);
-        manager.save(second);
-        manager.save(third);
-        manager.save(fourth);
-        manager.save(fifth);
-        manager.save(sixth);
-        manager.save(seventh);
-        manager.save(eight);
-        manager.save(ninth);
-        manager.save(tenth);
-        manager.save(eleventh);
-        manager.save(twelfth);
-
-        Film[] actual = manager.showAll();
+        FilmManager manager = new FilmManager(5,new FilmRepository());
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eight);
+        manager.add(ninth);
+        manager.add(tenth);
+        manager.add(eleventh);
+        manager.add(twelfth);
+        Film[] actual = manager.showAllStartLast();
         Film[] expected = {twelfth, eleventh, tenth, ninth, eight};
         assertArrayEquals(expected, actual);
 
@@ -81,10 +98,10 @@ class FilmManagerTest {
     public void shouldShowAllOneFilm() {
         Film first = new Film(1, "eger", "action");
 
-        FilmManager manager = new FilmManager();
-        manager.save(first);
+        FilmManager manager = new FilmManager(new FilmRepository());
+        manager.add(first);
 
-        Film[] actual = manager.showAll();
+        Film[] actual = manager.showAllStartLast();
         Film[] expected = {first};
         assertArrayEquals(expected, actual);
 
@@ -93,9 +110,9 @@ class FilmManagerTest {
     @Test
     public void shouldShowAllNoFilm() {
 
-        FilmManager manager = new FilmManager();
+        FilmManager manager = new FilmManager(new FilmRepository());
 
-        Film[] actual = manager.showAll();
+        Film[] actual = manager.showAllStartLast();
         Film[] expected = {};
         assertArrayEquals(expected, actual);
 

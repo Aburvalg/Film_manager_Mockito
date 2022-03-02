@@ -2,33 +2,22 @@ package ru.netology.repository;
 
 import ru.netology.domain.Film;
 
-public class FilmRepository {
-    private Film[] films = new Film[0];
+import java.util.ArrayList;
+import java.util.List;
 
-    public void save(Film film) {
-        int length = films.length + 1;
-        Film[] tmp = new Film[length];
-        System.arraycopy(films, 0, tmp, 0, films.length);
-        int lastIndex = tmp.length - 1;
-        tmp[lastIndex] = film;
-        films = tmp;
+public class FilmRepository {
+    private List<Film> films = new ArrayList();
+
+    public void save(Film newFilm) {
+       films.add(newFilm);
     }
 
-    public Film[] showAll() {
+    public List<Film> showAll() {
         return films;
     }
 
     public void removeById(int id) {
-        int length = films.length - 1;
-        Film[] tmp = new Film[length];
-        int index = 0;
-        for (Film film : films) {
-            if (film.getId() != id) {
-                tmp[index] = film;
-                index++;
-            }
-        }
-        films = tmp;
+        films.removeIf(el->el.getId()==id);//используется Predicate,удалить, если id элемента равно id заданному
     }
 
 
