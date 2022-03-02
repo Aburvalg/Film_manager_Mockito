@@ -34,10 +34,10 @@ public class FilmManager {
 
     public Film[] showAllStartLast() {
         var filmsFromRepo = repo.showAll();
-        int resultLength = Math.min(limitForShow,filmsFromRepo.size());// сокращая все предыдущее
+        int resultLength = Math.min(limitForShow, filmsFromRepo.size());// сокращая все предыдущее
         Film[] result = new Film[resultLength];
         for (int i = 0; i < result.length; i++) {
-            result[i] = filmsFromRepo.get(filmsFromRepo.size()-i-1);
+            result[i] = filmsFromRepo.get(filmsFromRepo.size() - i - 1);
         }
         return result;
     }
@@ -52,30 +52,30 @@ public class FilmManager {
         repo.removeById(id);
     }
 
-    private Film [] findBy (Predicate<Film>filter){ //общая логика поиска вынесена в отдельный приватный метод
+    private Film[] findBy(Predicate<Film> filter) { //общая логика поиска вынесена в отдельный приватный метод
         var filmsFromRepo = repo.showAll();
         var result = new ArrayList<Film>();
-        for(Film film:filmsFromRepo){
-            if(filter.test(film)){
+        for (Film film : filmsFromRepo) {
+            if (filter.test(film)) {
                 result.add(film);
             }
         }
         return result.toArray(new Film[0]);
     }
 
-    public Film findById (int id){
-        Film[] films = findBy(film -> film.getId()==id);
-        if(films.length==0) {
+    public Film findById(int id) {
+        Film[] films = findBy(film -> film.getId() == id);
+        if (films.length == 0) {
             throw new RuntimeException("Film with id:" + id + "not found");
         }
-        if(films.length>1) {
+        if (films.length > 1) {
             throw new RuntimeException("Film with id:" + id + "non unique");
         }
         return films[0];
     }
 
-    public Film[] findByNameFilm (String text){
-        return findBy(film-> film.getNameFilm().equalsIgnoreCase(text));
+    public Film[] findByNameFilm(String text) {
+        return findBy(film -> film.getNameFilm().equalsIgnoreCase(text));
     }
 
 }

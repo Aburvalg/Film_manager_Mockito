@@ -43,7 +43,7 @@ class FilmManagerTest {
     }
 
     @Test
-    public  void shouldSort(){
+    public void shouldSort() {
         manager.removeById(2);
         manager.removeById(4);
         manager.removeById(6);
@@ -51,17 +51,17 @@ class FilmManagerTest {
         manager.removeById(9);
         manager.removeById(10);
         manager.removeById(12);
-        Film[] actual = manager.findWithSort((a,b)->(a.getId()-b.getId())); // на ввод подаются две сущности и сравниваются, их названия без разницы
-        assertArrayEquals(new Film[]{first,third,fifth,seventh,eleventh},actual);
+        Film[] actual = manager.findWithSort((a, b) -> (a.getId() - b.getId())); // на ввод подаются две сущности и сравниваются, их названия без разницы
+        assertArrayEquals(new Film[]{first, third, fifth, seventh, eleventh}, actual);
     }
 
     @Test
-    public void shouldFindById(){
+    public void shouldFindById() {
         assertEquals(fifth, manager.findById(5));
     }
 
     @Test
-    public void shouldFindByNameFilm(){
+    public void shouldFindByNameFilm() {
         assertArrayEquals(new Film[]{fifth}, manager.findByNameFilm("ve"));
     }
 
@@ -75,7 +75,7 @@ class FilmManagerTest {
 
     @Test
     public void shouldShowAllFullFilmsWithLimit() {
-        FilmManager manager = new FilmManager(5,new FilmRepository());
+        FilmManager manager = new FilmManager(5, new FilmRepository());
         manager.add(first);
         manager.add(second);
         manager.add(third);
